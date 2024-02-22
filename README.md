@@ -60,7 +60,7 @@ Now we will grow or extend the existing Logical volume to our new target size.  
   Logical volume serverb_01_vg/serverb_01_lv successfully resized.
 ```
 
-Now we will extend the XFS file system to the remaining space on the logical volume
+Usese the xfs_growfs command to increase the size of a mounted XFS file system.  Or we extend the XFS file system to the remaining space on the logical volume
 ```
 # xfs_growfs /storage/data1
 meta-data=/dev/mapper/serverb_01_vg-serverb_01_lv isize=512    agcount=4, agsize=16384 blks
