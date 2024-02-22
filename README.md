@@ -53,7 +53,7 @@ Let's add or extend that partition to existing volume group
   Volume group "serverb_01_vg" successfully extended
 ```
 
-Now we will grow or extend the existing Logical volume to our new target size
+Now we will grow or extend the existing Logical volume to our new target size.  We use -L to define the logical volume size
 ```
 # lvextend -L 768M /dev/serverb_01_vg/serverb_01_lv
   Size of logical volume serverb_01_vg/serverb_01_lv changed from 256.00 MiB (64 extents) to 768.00 MiB (192 extents).
