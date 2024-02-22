@@ -77,4 +77,5 @@ data blocks changed from 65536 to 196608
 ```
 All done!
 
+
 Now let's create a second logical volume on the existing volume group
