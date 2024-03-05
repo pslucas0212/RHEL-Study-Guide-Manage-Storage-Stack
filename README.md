@@ -2,7 +2,7 @@
 
 [RHEL Study Guide - Table of Contents](https://github.com/pslucas0212/RHEL-Study-Guide) 
 
-In this example we have an existing voloume group with a defined logical volume.  We the logical volume is running out of space and the volume group has space we can add to the current logical volume
+In this example we have an existing volume group with a defined logical volume.  We the logical volume is running out of space and the volume group has space we can add to the current logical volume
 
 Let's get the layout of the land so to speak
 ```
