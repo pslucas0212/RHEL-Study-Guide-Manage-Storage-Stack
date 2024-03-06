@@ -2,6 +2,24 @@
 
 [RHEL Study Guide - Table of Contents](https://github.com/pslucas0212/RHEL-Study-Guide) 
 
+High level steps for LVM extension/creation
+1. lsblk - Identify unused disks with lsblk command.  lsblk list block devices connected to your system
+2. parted print - Confirm a disk does not have a label with parted /dev/vdb unit MiB print
+3. Make a partition to expand the LVM - parted /dev/vdb mkpart primary 514MiB 1024MiB
+4. Set the new partition to LVM - parted /dev/vdb set 2 lvm on
+5. Register new partition with kernel - udevadm settle
+6. Initialize the physical volume for use with LVM - pvcreate /dev/vdb2
+7. Extend the volume group to the new partition - vgextend serverb_01_vg /dev/vdb2
+8. Extend the the logical volume - lvextend -L 768M /dev/serverb_01_vg/serverb_01_lv   The -L switch is used to pass the size of to grow
+9. Extend the file system format to the new space on the lvm - xfs_growfs /storage/data1
+10. Create a new logical volume in an existing volume group - lvcreate -n serverb_02_lv -L 128M serverb_01_vg
+11. Create file system on new lvm - mkfs -t xfs /dev/serverb_01_vg/serverb_02_lv
+12. Make new mount point - mkdir /storage/data2
+13. Update fstab - /dev/serverb_01_vg/serverb_02_lv    /storage/data2    xfs   defaults   0 0
+14. Reload deamon - systemctl daemon-reload
+15. Mount nvew volume - mount /storage/data2
+16. Check size with df -h /storage/datax or lvdisplay /dev/serverb_01_vg/server_0x_lv
+
 In this example we have an existing volume group with a defined logical volume.  We the logical volume is running out of space and the volume group has space we can add to the current logical volume
 
 Let's get the layout of the land so to speak
