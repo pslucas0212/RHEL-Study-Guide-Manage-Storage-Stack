@@ -97,3 +97,36 @@ All done!
 
 
 Now let's create a second logical volume on the existing volume group
+
+First create the new logigcal volumen sized 128M.
+```
+lvcreate -n serverb_02_lv -L 128M serverb_01_vg
+  Logical volume "serverb_02_lv" created.
+```
+
+Create xfs files system on the new logical volume
+```
+# mkfs -t xfs /dev/serverb_01_vg/serverb_02_lv
+```
+
+Let's make the new directory, mount and add to /etc/fstab
+```
+# mkdir /storage/data2
+# vi /etc/fstab
+/dev/serverb_01_vg/serverb_02_lv /storage/data2 xfs defaults 0 0
+# systemctl daemon-reload
+# mount /stroage/data2
+```
+
+Wec can check the size of our mount with df using -h to make it human readable
+```
+# df -h /storage/data1
+# df -h /storage/data2
+```
+
+Use lvdisplay to see the logical volumen information
+
+```
+# lvdisplay /dev/serverb_01_vg/server_01_lv
+# lvdisplay /dev/serverb_01_vg/server_02_lv
+```
